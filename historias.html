@@ -114,8 +114,9 @@
             padding: 0 20px; /* Padding solo cuando está colapsado */
         }
 
+        /* CAMBIO CLAVE AQUÍ: Aumentar el max-height para que quepa todo el contenido */
         .trick-content.active {
-            max-height: 1000px; /* Suficiente para expandir el contenido. Ajusta si es necesario */
+            max-height: 2000px; /* Suficientemente grande para todo el contenido. Puedes poner un valor aún mayor si hay trucos muy largos. */
             padding: 20px; /* Padding cuando está expandido */
         }
 
@@ -156,39 +157,42 @@
         }
         /* Estilos para el contenedor de imágenes lado a lado */
         .image-pair {
-    display: flex; /* Convierte el contenedor en un flex container */
-    flex-wrap: wrap; /* Permite que los elementos se envuelvan a la siguiente línea en pantallas pequeñas */
-    justify-content: center; /* Centra los elementos horizontalmente */
-    align-items: center; /* Alinea los elementos verticalmente al centro */
-    gap: 20px; /* Espacio entre las imágenes y el párrafo */
-    margin: 20px 0; /* Margen superior e inferior para separar del texto */
+            display: flex; /* Convierte el contenedor en un flex container */
+            flex-wrap: wrap; /* Permite que los elementos se envuelvan a la siguiente línea en pantallas pequeñas */
+            justify-content: center; /* Centra los elementos horizontalmente */
+            align-items: center; /* Alinea los elementos verticalmente al centro */
+            gap: 20px; /* Espacio entre las imágenes y el párrafo */
+            margin: 20px 0; /* Margen superior e inferior para separar del texto */
         }
 
         .image-pair img {
-    max-width: 45%; /* Cada imagen ocupa casi la mitad del contenedor (ajusta si hay 3 elementos) */
-    height: auto; /* Mantiene la proporción de la imagen */
-    flex-shrink: 0; /* Evita que las imágenes se encojan demasiado */
+            max-width: 45%; /* Cada imagen ocupa casi la mitad del contenedor (ajusta si hay 3 elementos) */
+            height: auto; /* Mantiene la proporción de la imagen */
+            flex-shrink: 0; /* Evita que las imágenes se encojan demasiado */
         }
 
-/* Si hay texto entre las imágenes, también podemos estilizarlo para que se alinee */
-.image-pair p {
-    flex: 1; /* Permite que el párrafo ocupe el espacio restante */
-    max-width: 45%; /* Asegura que no se estire demasiado si hay mucho espacio */
-    text-align: justify; /* Alinea el texto justificado */
-    margin: 0; /* Elimina márgenes predeterminados del párrafo */
-}
+        /* Si hay texto entre las imágenes, también podemos estilizarlo para que se alinee */
+        .image-pair p {
+            flex: 1; /* Permite que el párrafo ocupe el espacio restante */
+            max-width: 45%; /* Asegura que no se estire demasiado si hay mucho espacio */
+            text-align: justify; /* Alinea el texto justificado */
+            margin: 0; /* Elimina márgenes predeterminados del párrafo */
+        }
 
-/* Media Query para pantallas pequeñas: apilar imágenes verticalmente */
-@media (max-width: 768px) {
-    .image-pair {
-        flex-direction: column; /* Apila los elementos verticalmente */
-        align-items: center; /* Centra los elementos apilados */
-    }
-    .image-pair img,
-    .image-pair p {
-        max-width: 90%; /* Ocupan casi todo el ancho disponible */
-    }
-}
+        /* Media Query para pantallas pequeñas: apilar imágenes verticalmente */
+        @media (max-width: 768px) {
+            .image-pair {
+                flex-direction: column; /* Apila los elementos verticalmente */
+                align-items: center; /* Centra los elementos apilados */
+            }
+            .image-pair img,
+            .image-pair p {
+                max-width: 90%; /* Ocupan casi todo el ancho disponible */
+            }
+        }
+             .centro-texto {
+                 text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -199,7 +203,7 @@
                 <li><a href="index.html">Inicio</a></li>
                 <li><a href="historias.html">Historias y Trucos</a></li>
                 <li><a href="mapa.html">Mapa Interactivo</a></li>
-                </ul>
+            </ul>
         </nav>
     </header>
 
@@ -216,16 +220,16 @@
                     El estrés es un factor común que puede influir en nuestras decisiones y bienestar general. La "Técnica del Respiro Profundo" es una herramienta sencilla pero poderosa que puedes usar en cualquier momento para calmar tu mente y cuerpo, ayudándote a tomar mejores decisiones y a reducir la ansiedad.
                 </p>
                 <p>
-                    **Paso 1: Inhala lentamente por la nariz durante 4 segundos.** Siente cómo tu abdomen se eleva.
+                    <strong>Paso 1: Inhala lentamente por la nariz durante 4 segundos.</strong> Siente cómo tu abdomen se eleva.
                 </p>
                 <p>
-                    **Paso 2: Mantén el aire en tus pulmones durante 7 segundos.** Nota la quietud y la sensación de plenitud.
+                    <strong>Paso 2: Mantén el aire en tus pulmones durante 7 segundos.</strong> Nota la quietud y la sensación de plenitud.
                 </p>
                 <p>
-                    **Paso 3: Exhala lentamente por la boca durante 8 segundos.** Hazlo de forma controlada, sintiendo cómo el aire sale y tu abdomen se desinfla. Concéntrate en liberar toda la tensión.
+                    <strong>Paso 3: Exhala lentamente por la boca durante 8 segundos.</strong> Hazlo de forma controlada, sintiendo cómo el aire sale y tu abdomen se desinfla. Concéntrate en liberar toda la tensión.
                 </p>
                 <p>
-                    **Repite esta secuencia (4-7-8) de 3 a 5 veces.** Con cada ciclo, notarás cómo tu ritmo cardíaco se ralentiza, tus músculos se relajan y tu mente se despeja. Practícala antes de situaciones estresantes, cuando sientas ansiedad, o simplemente como parte de tu rutina diaria para mantener la calma.
+                    <strong>Repite esta secuencia (4-7-8) de 3 a 5 veces.</strong> Con cada ciclo, notarás cómo tu ritmo cardíaco se ralentiza, tus músculos se relajan y tu mente se despeja. Practícala antes de situaciones estresantes, cuando sientas ansiedad, o simplemente como parte de tu rutina diaria para mantener la calma.
                 </p>
                 <div class="trick-photos">
                     <img src="https://via.placeholder.com/250x180?text=Respiracion+1" alt="Persona meditando o respirando profundo">
@@ -244,16 +248,16 @@
                     Un "disparador" es cualquier persona, lugar, cosa o emoción que te hace sentir ganas de consumir una sustancia. Identificar tus disparadores es el primer paso crucial para evitarlos o manejarlos de manera efectiva.
                 </p>
                 <p>
-                    **1. Lleva un registro:** Anota cuándo y dónde sientes el deseo de consumir. ¿Qué estabas haciendo? ¿Con quién estabas? ¿Cómo te sentías? Patrones pueden surgir rápidamente.
+                    <strong>1. Lleva un registro:</strong> Anota cuándo y dónde sientes el deseo de consumir. ¿Qué estabas haciendo? ¿Con quién estabas? ¿Cómo te sentías? Patrones pueden surgir rápidamente.
                 </p>
                 <p>
-                    **2. Evita proactivamente:** Una vez que identifiques tus disparadores, intenta evitarlos. Esto puede significar cambiar rutas, evitar ciertas amistades o lugares, o desarrollar nuevas actividades para ocupar tu tiempo.
+                    <strong>2. Evita proactivamente:</strong> Una vez que identifiques tus disparadores, intenta evitarlos. Esto puede significar cambiar rutas, evitar ciertas amistades o lugares, o desarrollar nuevas actividades para ocupar tu tiempo.
                 </p>
                 <p>
-                    **3. Desarrolla estrategias de afrontamiento:** Si no puedes evitar un disparador, ten un plan. Esto podría ser llamar a un amigo de apoyo, practicar la técnica del respiro profundo, salir a caminar, o recordarte tus razones para mantenerte sobrio.
+                    <strong>3. Desarrolla estrategias de afrontamiento:</strong> Si no puedes evitar un disparador, ten un plan. Esto podría ser llamar a un amigo de apoyo, practicar la técnica del respiro profundo, salir a caminar, o recordarte tus razones para mantenerte sobrio.
                 </p>
                 <p>
-                    **4. Busca apoyo:** Hablar con un terapeuta, un consejero o un grupo de apoyo puede proporcionarte herramientas y estrategias adicionales para manejar los disparadores de forma saludable. No tienes que hacerlo solo.
+                    <strong>4. Busca apoyo:</strong> Hablar con un terapeuta, un consejero o un grupo de apoyo puede proporcionarte herramientas y estrategias adicionales para manejar los disparadores de forma saludable. No tienes que hacerlo solo.
                 </p>
                 <div class="trick-photos">
                     <img src="https://via.placeholder.com/250x180?text=Diario+Personal" alt="Persona escribiendo en un diario">
@@ -262,44 +266,47 @@
             </div>
         </div>
         
-                <div class="trick-item">
+        <div class="trick-item">
             <div class="trick-header">
-    <h3>Como hacer un pipa con una manzana</h3>
-    <button class="toggle-icon">▶</button>
-</div>
-<div class="trick-content">
-    <p>
-        Pillas una manzana(si es roja mejor)
-<img src="img/Apple.png" alt="Instrucción de agujeros en manzana" style="max-width: 300px; height: auto; display: block; margin: 15px auto;">
-    </p>
-    <p>
-        Haz un agujero por un lado que llegue al centro(usa un cuchillo,un boligrafo o con la churra)
-    </p>
-    <p>
-        Haz otro agujero por otro lado, intenta que hagan un angulo de entre 90º y 120º.
-        Imagen por si no tienes la primaria:
-        <br>
-        <img src="img/120.jpg" alt="Instrucción de agujeros en manzana" style="max-width: 300px; height: auto; display: block; margin: 15px auto;">
-    </p>
+                <h3>Como hacer un pipa con una manzana</h3>
+                <button class="toggle-icon">▶</button>
+            </div>
+            <div class="trick-content">
+                <p>
+                    Pillas una manzana(si es roja mejor)
+                </p>
+                <img src="img/Apple.png" alt="Manzana para hacer pipa" style="max-width: 300px; height: auto; display: block; margin: 15px auto;">
+                
+                <p>
+                    Haz un agujero por un lado que llegue al centro(usa un cuchillo, un boligrafo o con la churra)
+                </p>
+                <p>
+                    Haz otro agujero por otro lado, intenta que hagan un angulo de entre 90º y 120º.
+                    <br> Imagen por si no tienes la primaria:
+                    <br>
+                    <img src="img/120.jpg" alt="Instrucción de agujeros en manzana" style="max-width: 300px; height: auto; display: block; margin: 15px auto;">
+                </p>
 
-    <p>
-        Prepara un trozo de papel albal con algunos agujeros,el tema es que funcione como redecilla para que una vez aspires no cuele ninguna mota de sustacia (de la que deja fragancia)
-        <br> Pon este instumento en el agujero que te apetezca
-        <div class="image-pair">
-        <img src="img/rejillas-red-eye-pipa.jpg" alt="Rejillas para pipa" style="max-width: 300px; height: auto; display: block; margin: 15px auto;"> <img src="img/albal.jpg" alt="Instrucción de agujeros en manzana" style="max-width: 300px; height: auto; display: block; margin: 15px auto;">
+                <p>
+                    Prepara un trozo de papel albal con algunos agujeros, el tema es que funcione como redecilla para que una vez aspires no cuele ninguna mota de sustacia (de la que deja fragancia).
+                    <br> Pon este instumento en el agujero que te apetezca
+                </p>
+                <div class="image-pair">
+                    <img src="img/rejillas-red-eye-pipa.jpg" alt="Rejillas para pipa">
+                    <img src="img/albal.jpg" alt="Papel de aluminio con agujeros">
+                </div>
+                
+                <p>
+                    Pon la maria o una mezcla de hacho y tabaco (se puede solo pero no quema tan bien) en la redecilla
+                </p>
+                <p>
+                    Pilla un mechero ya sea tu clipper de confianza o un jett y prendele a esa baina loca que te lleva a la gloria.
+                    <img src="img/bienn.jpg" alt="Instrucción de agujeros en manzana" style="max-width: 300px; height: auto; display: block; margin: 15px auto;">
+                </p>
+            </div>
         </div>
-    </p>
-
-    <p>
-        Pon la maria o una mezcla de hacho y tabaco (se puede solo pero no quema tan bien) en la redecilla
-    </p>
-    <p>
-        Pilla un mechero ya sea tu clipper de confianza o un jett y prendele a esa baina loca que te lleva a la gloria.
-    </p>
-</div>
         
-        
-        </div>
+    </div>
 
     <footer>
         <p>&copy; 2025 Tu Página de Concienciación. Todos los derechos reservados.</p>
