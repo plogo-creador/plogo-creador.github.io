@@ -112,11 +112,26 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: block; /* Asegura que la imagen no tenga espacio extra inferior */
             margin: 0 auto; /* Centra la imagen dentro de su grid item */
+
+            /* ANIMACIÓN DE FLOTACIÓN APLICADA AQUÍ */
+            animation: float 4s ease-in-out infinite; /* Nombre, duración, tipo de easing, repetición */
+        }
+
+        /* RETRASO DE ANIMACIÓN PARA CADA IMAGEN (OPCIONAL, PERO DA UN EFECTO MÁS NATURAL) */
+        .image-gallery img:nth-child(1) {
+            animation-delay: 0s; /* Empieza al instante */
+        }
+        .image-gallery img:nth-child(2) {
+            animation-delay: 0.5s; /* Empieza medio segundo después */
+        }
+        .image-gallery img:nth-child(3) {
+            animation-delay: 1s; /* Empieza un segundo después */
         }
 
         .image-gallery img:hover {
-            transform: scale(1.05);
+            transform: scale(1.05); /* Escala un poco más al pasar el ratón */
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            animation-play-state: paused; /* Detiene la animación al pasar el ratón */
         }
 
         .button {
@@ -145,6 +160,13 @@
             background-color: #D3B88C; /* Un dorado suave */
             width: 100%;
             text-align: center;
+        }
+
+        /* DEFINICIÓN DE LA ANIMACIÓN DE FLOTACIÓN */
+        @keyframes float {
+            0% { transform: translateY(0px); } /* Empieza en la posición normal */
+            50% { transform: translateY(-10px); } /* Sube 10px (ajusta este valor para más o menos movimiento) */
+            100% { transform: translateY(0px); } /* Vuelve a la posición normal */
         }
 
         /* MEDIA QUERIES PARA RESPONSIVIDAD */
