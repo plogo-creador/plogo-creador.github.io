@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historias y Trucos - Concienciación sobre Drogas</title>
+    <style>
+        /* Estilos CSS integrados */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #E0CCA6; /* Color cartón (marrón claro) */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Estilos para la barra de navegación */
+        .header-nav {
+            width: 100%;
+            background-color: #6B8E23; /* Verde para la barra de navegación */
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .header-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .header-nav ul li {
+            margin: 0 25px;
+        }
+
+        .header-nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
+        }
+
+        .header-nav ul li a:hover {
+            color: #D3B88C; /* Tono cartón al pasar el ratón */
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 90%;
+            margin: 30px auto;
+            border: 2px solid #6B8E23;
+            text-align: left;
+        }
+
+        h2 {
+            color: #6B8E23;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Estilos para cada sección de truco expandible */
+        .trick-item {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            overflow: hidden; /* Importante para la animación del submenú */
+        }
+
+        .trick-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .trick-header h3 {
+            margin: 0;
+            color: #8B4513; /* Marrón oscuro para los títulos de trucos */
+            font-size: 1.5em;
+        }
+
+        .toggle-icon {
+            font-size: 1.8em;
+            color: #6B8E23;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-icon.active {
+            transform: rotate(90deg); /* Gira la flecha cuando el truco está expandido */
+        }
+
+        .trick-content {
+            max-height: 0; /* Oculto por defecto */
+            overflow: hidden;
+            transition: max-height 0.5s ease-out; /* Animación de deslizamiento */
+            padding: 0 20px; /* Padding solo cuando está colapsado */
+        }
+
+        .trick-content.active {
+            max-height: 1000px; /* Suficiente para expandir el contenido. Ajusta si es necesario */
+            padding: 20px; /* Padding cuando está expandido */
+        }
+
+        .trick-content p {
+            font-size: 1.1em; /* Texto legible */
+            line-height: 1.7;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .trick-photos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px; /* Menor espacio entre fotos para ajustarse al contenido */
+            margin-top: 20px;
+            margin-bottom: 10px; /* Menos margen inferior para estar dentro del padding */
+        }
+
+        .trick-photos img {
+            max-width: 100%;
+            width: 250px; /* Tamaño ligeramente más pequeño para las imágenes */
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ccc;
+            object-fit: cover;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #777;
+            background-color: #D3B88C;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-nav">
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="historias.html">Historias y Trucos</a></li>
+                <li><a href="mapa.html">Mapa Interactivo</a></li>
+                </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Historias y Trucos para una Vida Saludable</h2>
+
+        <div class="trick-item">
+            <div class="trick-header">
+                <h3>Truco para el Estrés: La "Técnica del Respiro Profundo"</h3>
+                <button class="toggle-icon">▶</button>
+            </div>
+            <div class="trick-content">
+                <p>
+                    El estrés es un factor común que puede influir en nuestras decisiones y bienestar general. La "Técnica del Respiro Profundo" es una herramienta sencilla pero poderosa que puedes usar en cualquier momento para calmar tu mente y cuerpo, ayudándote a tomar mejores decisiones y a reducir la ansiedad.
+                </p>
+                <p>
+                    **Paso 1: Inhala lentamente por la nariz durante 4 segundos.** Siente cómo tu abdomen se eleva.
+                </p>
+                <p>
+                    **Paso 2: Mantén el aire en tus pulmones durante 7 segundos.** Nota la quietud y la sensación de plenitud.
+                </p>
+                <p>
+                    **Paso 3: Exhala lentamente por la boca durante 8 segundos.** Hazlo de forma controlada, sintiendo cómo el aire sale y tu abdomen se desinfla. Concéntrate en liberar toda la tensión.
+                </p>
+                <p>
+                    **Repite esta secuencia (4-7-8) de 3 a 5 veces.** Con cada ciclo, notarás cómo tu ritmo cardíaco se ralentiza, tus músculos se relajan y tu mente se despeja. Practícala antes de situaciones estresantes, cuando sientas ansiedad, o simplemente como parte de tu rutina diaria para mantener la calma.
+                </p>
+                <div class="trick-photos">
+                    <img src="https://via.placeholder.com/250x180?text=Respiracion+1" alt="Persona meditando o respirando profundo">
+                    <img src="https://via.placeholder.com/250x180?text=Respiracion+2" alt="Diagrama de respiración diafragmática">
+                </div>
+            </div>
+        </div>
+
+        <div class="trick-item">
+            <div class="trick-header">
+                <h3>Truco para Prevención: Cómo Identificar y Evitar Disparadores</h3>
+                <button class="toggle-icon">▶</button>
+            </div>
+            <div class="trick-content">
+                <p>
+                    Un "disparador" es cualquier persona, lugar, cosa o emoción que te hace sentir ganas de consumir una sustancia. Identificar tus disparadores es el primer paso crucial para evitarlos o manejarlos de manera efectiva.
+                </p>
+                <p>
+                    **1. Lleva un registro:** Anota cuándo y dónde sientes el deseo de consumir. ¿Qué estabas haciendo? ¿Con quién estabas? ¿Cómo te sentías? Patrones pueden surgir rápidamente.
+                </p>
+                <p>
+                    **2. Evita proactivamente:** Una vez que identifiques tus disparadores, intenta evitarlos. Esto puede significar cambiar rutas, evitar ciertas amistades o lugares, o desarrollar nuevas actividades para ocupar tu tiempo.
+                </p>
+                <p>
+                    **3. Desarrolla estrategias de afrontamiento:** Si no puedes evitar un disparador, ten un plan. Esto podría ser llamar a un amigo de apoyo, practicar la técnica del respiro profundo, salir a caminar, o recordarte tus razones para mantenerte sobrio.
+                </p>
+                <p>
+                    **4. Busca apoyo:** Hablar con un terapeuta, un consejero o un grupo de apoyo puede proporcionarte herramientas y estrategias adicionales para manejar los disparadores de forma saludable. No tienes que hacerlo solo.
+                </p>
+                <div class="trick-photos">
+                    <img src="https://via.placeholder.com/250x180?text=Diario+Personal" alt="Persona escribiendo en un diario">
+                    <img src="https://via.placeholder.com/250x180?text=Grupo+de+Apoyo" alt="Personas en una sesión de grupo de apoyo">
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+    <footer>
+        <p>&copy; 2025 Tu Página de Concienciación. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // JavaScript para la funcionalidad de expandir/contraer trucos
+        document.addEventListener('DOMContentLoaded', () => {
+            const trickHeaders = document.querySelectorAll('.trick-header');
+
+            trickHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const toggleIcon = header.querySelector('.toggle-icon');
+                    const content = header.nextElementSibling; // El siguiente elemento es .trick-content
+
+                    // Alternar la clase 'active' en el icono y el contenido
+                    toggleIcon.classList.toggle('active');
+                    content.classList.toggle('active');
+
+                    // Cerrar otros trucos si quieres un "acordeón" donde solo uno esté abierto
+                    /*
+                    trickHeaders.forEach(otherHeader => {
+                        if (otherHeader !== header) {
+                            const otherToggleIcon = otherHeader.querySelector('.toggle-icon');
+                            const otherContent = otherHeader.nextElementSibling;
+                            otherToggleIcon.classList.remove('active');
+                            otherContent.classList.remove('active');
+                        }
+                    });
+                    */
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

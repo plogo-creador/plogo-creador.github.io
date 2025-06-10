@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Interactivo y Comentarios - Concienciación sobre Drogas</title>
+
+    <style>
+        /* Estilos CSS Integrados - (los mismos que te gustaron y funcionan) */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('img/fondo-concienciacion.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-color: #E0CCA6;
+            
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .header-nav {
+            width: 100%;
+            background-color: #6B8E23;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            position: sticky; 
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .header-nav ul li {
+            margin: 0 25px;
+        }
+
+        .header-nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .header-nav ul li a:hover {
+            color: #D3B88C;
+            transform: translateY(-2px);
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 10px;
+            border: none;
+            box-shadow: 
+                0 0 80px 30px rgba(255, 255, 255, 0.7),
+                inset 0 0 50px 10px rgba(255, 255, 255, 0.5);
+            
+            max-width: 1000px;
+            width: 90%;
+            margin: 20px auto;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 100px 40px rgba(255, 255, 255, 0.8), inset 0 0 60px 15px rgba(255, 255, 255, 0.6);
+        }
+
+        h2 {
+            color: #6B8E23;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        /* Estilos para el mapa (iframe) */
+        .map-wrapper {
+            height: 500px;
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            border-radius: 8px;
+        }
+
+        /* Estilos para la sección de comentarios */
+        .comments-section {
+            width: 100%;
+            text-align: left;
+            margin-top: 30px;
+        }
+
+        .comment {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .comment:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .comment-header h3 {
+            margin: 0;
+            color: #6B8E23;
+        }
+
+        .toggle-submenu {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #6B8E23;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-submenu.active {
+            transform: rotate(90deg);
+        }
+
+        .comment-content {
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .comment-submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+            background-color: #eee;
+            padding: 0;
+            border-radius: 5px;
+        }
+
+        .comment-submenu.active {
+            max-height: 500px;
+            padding: 15px;
+        }
+
+        .submenu-photos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .submenu-photos img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .submenu-photos img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .submenu-links a {
+            display: block;
+            color: #007bff;
+            text-decoration: none;
+            margin-bottom: 8px;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .submenu-links a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+            transform: translateX(5px);
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #777;
+            background-color: #D3B88C;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* MEDIA QUERIES PARA RESPONSIVIDAD */
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 2em; 
+            }
+            .container {
+                padding: 25px;
+            }
+            .header-nav ul li {
+                margin: 0 15px;
+                font-size: 1em;
+            }
+            p {
+                font-size: 1.1em;
+            }
+            .map-wrapper {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 1.8em;
+            }
+            .header-nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            .header-nav ul li {
+                margin: 10px 0;
+            }
+            .container {
+                padding: 15px;
+            }
+            .submenu-photos img {
+                width: 80px;
+                height: 80px;
+            }
+            .map-wrapper {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-nav">
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="historias.html">Historias y Trucos</a></li>
+                <li><a href="mapa.html">Mapa Interactivo</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Explora el Mapa y Comparte tu Experiencia</h2>
+
+        <div class="map-wrapper">
+            <iframe id="googleMap"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.493864755109!2d-3.7037902!3d40.4167754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422997800a7b45%3A0xb8d390a427050f2!2sMadrid%2C%20Espa%C3%B1a!5e0!3m2!1ses!2ses!4v1717849313271!5m2!1ses!2ses7"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <div class="comments-section">
+            <h3>Comentarios y Aportaciones</h3>
+
+            <div class="comment">
+                <div class="comment-header">
+                    <h3>María G.</h3>
+                    <button class="toggle-submenu">▶</button>
+                </div>
+                <div class="comment-content">
+                    "Este mapa me ayudó a visualizar la concentración de centros de apoyo en mi ciudad. ¡Gracias por esta herramienta!"
+                </div>
+                <div class="comment-submenu">
+                    <div class="submenu-photos">
+                        <img src="https://via.placeholder.com/100x100?text=Foto1" alt="Foto del lugar 1" data-lat="42.22582188533504" data-lon="-8.712354930378742" data-zoom="15">
+                        <img src="https://via.placeholder.com/100x100?text=Foto2" alt="Foto del lugar 2" data-lat="37.185698" data-lon="-3.606772" data-zoom="14">
+                    </div>
+                    <div class="submenu-links">
+                        <a href="#" class="map-link" data-lat="42.226018" data-lon="-8.71194" data-zoom="16">SAN ROQUE (Vigo)</a>
+                        <a href="#" class="map-link" data-lat="37.185698" data-lon="-3.606772" data-zoom="18">Ver Lugar Histórico B (Granada) en el mapa</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comment">
+                <div class="comment-header">
+                    <h3>Juan P.</h3>
+                    <button class="toggle-submenu">▶</button>
+                </div>
+                <div class="comment-content">
+                    "Es importante visibilizar los puntos clave donde se necesita más concienciación."
+                </div>
+                <div class="comment-submenu">
+                    <div class="submenu-photos">
+                        <img src="https://via.placeholder.com/100x100?text=Foto3" alt="Foto del lugar 3" data-lat="37.2001" data-lon="-3.6200" data-zoom="13">
+                    </div>
+                    <div class="submenu-links">
+                        <a href="#" class="map-link" data-lat="37.2001" data-lon="-3.6200" data-zoom="13">Ver Espacio Público C en el mapa</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Tu Página de Concienciación. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleButtons = document.querySelectorAll('.toggle-submenu');
+            const mapIframe = document.getElementById('googleMap');
+
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const submenu = button.closest('.comment').querySelector('.comment-submenu');
+                    button.classList.toggle('active');
+                    submenu.classList.toggle('active');
+                });
+            });
+
+            // Función para actualizar el mapa DENTRO del iframe (¡Sin API Key!)
+            function updateIframeMap(lat, lon, zoom = 12) {
+                // Formato de URL simple para un mapa centrado en coordenadas y zoom
+                const newSrc = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.493864755109!2d-3.7037902!3d40.4167754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422997800a7b45%3A0xb8d390a427050f2!2sMadrid%2C%20Espa%C3%B1a!5e0!3m2!1ses!2ses!4v1717849313271!5m2!1ses!2ses8{lat},${lon}&z=${zoom}&output=embed`;
+                mapIframe.src = newSrc;
+            }
+
+            // Event listeners para los elementos que actualizan el mapa del iframe
+            document.querySelectorAll('.submenu-photos img, .map-link').forEach(item => {
+                item.addEventListener('click', (event) => {
+                    event.preventDefault(); // Evita que el navegador siga el href original
+                    
+                    const lat = item.dataset.lat;
+                    const lon = item.dataset.lon;
+                    const zoom = item.dataset.zoom ? parseInt(item.dataset.zoom) : 12;
+
+                    if (lat && lon) {
+                        updateIframeMap(lat, lon, zoom);
+                    }
+                });
+            });
+            
+            // Cargar una ubicación inicial al cargar la página
+            const initialMapItem = document.querySelector('.map-link') || document.querySelector('.submenu-photos img');
+            if (initialMapItem) {
+                const lat = initialMapItem.dataset.lat;
+                const lon = initialMapItem.dataset.lon;
+                const zoom = initialMapItem.dataset.zoom ? parseInt(initialMapItem.dataset.zoom) : 12;
+                updateIframeMap(lat, lon, zoom);
+            } else {
+                // Si no hay elementos con datos, carga una vista por defecto (ej. Granada Centro)
+                updateIframeMap("37.1773363", "-3.5982845", 12); 
+            }
+        });
+    </script>
+
+</body>
+</html>
