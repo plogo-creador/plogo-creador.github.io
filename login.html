@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión / Registrarse</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        /* Estilos generales (puedes moverlos a un archivo CSS externo si lo prefieres) */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #E0CCA6; /* Color cartón (marrón claro) */
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            border: 2px solid #6B8E23;
+        }
+
+        h2 {
+            color: #6B8E23;
+            font-size: 2em;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input[type="email"],
+        .form-group input[type="password"] {
+            width: calc(100% - 20px); /* Ancho completo menos padding */
+            padding: 12px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box; /* Incluye padding en el ancho */
+        }
+
+        button {
+            background-color: #8B4513; /* Marrón oscuro */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #A0522D; /* Marrón más claro al pasar el ratón */
+            transform: translateY(-2px);
+        }
+
+        .toggle-form {
+            margin-top: 25px;
+            font-size: 0.95em;
+            color: #666;
+        }
+
+        .toggle-form a {
+            color: #6B8E23;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .toggle-form a:hover {
+            text-decoration: underline;
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: none; /* Oculto por defecto */
+        }
+
+        .message.error {
+            background-color: #ffe0e0;
+            color: #cc0000;
+            border: 1px solid #ff9999;
+            display: block; /* Muestra si tiene clase error */
+        }
+
+        .message.success {
+            background-color: #e0ffe0;
+            color: #008000;
+            border: 1px solid #99ff99;
+            display: block; /* Muestra si tiene clase success */
+        }
+
+        /* Oculta los formularios que no están activos */
+        #register-form {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2 id="form-title">Iniciar Sesión</h2>
+
+        <form id="login-form">
+            <div class="form-group">
+                <label for="login-email">Correo Electrónico:</label>
+                <input type="email" id="login-email" required>
+            </div>
+            <div class="form-group">
+                <label for="login-password">Contraseña:</label>
+                <input type="password" id="login-password" required>
+            </div>
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+
+        <form id="register-form">
+            <div class="form-group">
+                <label for="register-email">Correo Electrónico:</label>
+                <input type="email" id="register-email" required>
+            </div>
+            <div class="form-group">
+                <label for="register-password">Contraseña:</label>
+                <input type="password" id="register-password" required>
+            </div>
+            <button type="submit">Registrarse</button>
+        </form>
+
+        <div class="message" id="auth-message"></div>
+
+        <div class="toggle-form">
+            <span id="toggle-login-text">¿No tienes una cuenta? <a href="#" id="show-register">Regístrate aquí</a></span>
+            <span id="toggle-register-text" style="display: none;">¿Ya tienes una cuenta? <a href="#" id="show-login">Iniciar Sesión</a></span>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIGURACIÓN DE SUPABASE ---
+        // REEMPLAZA ESTOS VALORES CON TUS CREDENCIALES REALES DE SUPABASE
+        const SUPABASE_URL = 'https://clxedgxqyvpgaeeaopvl.supabase.co'; // Tu URL de proyecto Supabase
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNseGVkZ3hxeXZwZ2FlZWFvcHZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk4MTc2MTAsImV4cCI6MjA2NTM5MzYxMH0.UPdg5UZtboLEFZHSInKkDdQ31oTcCBWnSy9lRKqMlnk'; // Tu clave anon pública de Supabase
+
+        const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // --- REFERENCIAS A ELEMENTOS DEL DOM ---
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const showRegisterLink = document.getElementById('show-register');
+        const showLoginLink = document.getElementById('show-login');
+        const toggleLoginText = document.getElementById('toggle-login-text');
+        const toggleRegisterText = document.getElementById('toggle-register-text');
+        const formTitle = document.getElementById('form-title');
+        const authMessage = document.getElementById('auth-message');
+
+        // --- FUNCIONES DE AUTENTICACIÓN ---
+
+        // Función para mostrar mensajes al usuario
+        function displayMessage(message, type) {
+            authMessage.textContent = message;
+            authMessage.className = 'message ' + type; // Asigna clase 'error' o 'success'
+        }
+
+        // Función para limpiar mensajes
+        function clearMessage() {
+            authMessage.textContent = '';
+            authMessage.className = 'message';
+        }
+
+        // Registro de usuario
+        async function signUp(email, password) {
+            clearMessage();
+            const { data, error } = await supabase.auth.signUp({
+                email: email,
+                password: password,
+            });
+
+            if (error) {
+                console.error('Error de registro:', error.message);
+                displayMessage('Error de registro: ' + error.message, 'error');
+            } else {
+                console.log('Usuario registrado:', data.user);
+                displayMessage('¡Registro exitoso! Por favor, verifica tu correo electrónico (si la confirmación por email está activada en Supabase).', 'success');
+                // Opcional: Puedes redirigir a una página de "Verificar Email" o directamente al login.
+                // window.location.href = 'check-email.html';
+                loginForm.reset(); // Limpia los campos
+                registerForm.reset();
+            }
+        }
+
+        // Inicio de sesión de usuario
+        async function signIn(email, password) {
+            clearMessage();
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password,
+            });
+
+            if (error) {
+                console.error('Error de inicio de sesión:', error.message);
+                displayMessage('Error de inicio de sesión: ' + error.message, 'error');
+            } else {
+                console.log('Sesión iniciada:', data.user);
+                displayMessage('¡Inicio de sesión exitoso! Redirigiendo...', 'success');
+                // Redirigir a la página del mapa o al contenido protegido
+                window.location.href = 'mapa.html'; // Redirige a tu página de mapa
+            }
+        }
+
+        // --- MANEJADORES DE EVENTOS DE FORMULARIO ---
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Previene el envío por defecto del formulario
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            await signIn(email, password);
+        });
+
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Previene el envío por defecto del formulario
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            await signUp(email, password);
+        });
+
+        // --- LÓGICA PARA ALTERNAR FORMULARIOS ---
+
+        showRegisterLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'block';
+            toggleLoginText.style.display = 'none';
+            toggleRegisterText.style.display = 'inline';
+            formTitle.textContent = 'Registrarse';
+            clearMessage();
+        });
+
+        showLoginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerForm.style.display = 'none';
+            loginForm.style.display = 'block';
+            toggleRegisterText.style.display = 'none';
+            toggleLoginText.style.display = 'inline';
+            formTitle.textContent = 'Iniciar Sesión';
+            clearMessage();
+        });
+
+        // --- COMPROBACIÓN INICIAL DE SESIÓN ---
+        // Esto es útil si el usuario llega a login.html ya autenticado (ej. desde una URL guardada)
+        async function checkSessionAndRedirect() {
+            const { data: { session }, error } = await supabase.auth.getSession();
+            if (session) {
+                console.log('Usuario ya autenticado, redirigiendo a mapa.html');
+                window.location.href = 'mapa.html';
+            } else {
+                console.log('No hay sesión activa, mostrando formulario de login.');
+            }
+        }
+
+        // Ejecuta la comprobación al cargar la página
+        document.addEventListener('DOMContentLoaded', checkSessionAndRedirect);
+
+    </script>
+</body>
+</html>
